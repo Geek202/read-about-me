@@ -1,0 +1,27 @@
+{
+  "name": "read-about-me",
+  "version": "0.1.0",
+  "license": "apache-2.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "cors": "^2.8.5",
+    "next": "10.1.3",
+    "next-absolute-url": "^1.2.2",
+    "notistack": "^1.0.6",
+    "react": "17.0.2",
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/react": "^17.0.3",
+    "@types/react-copy-to-clipboard": "^5.0.0",
+    "typescript": "^4.2.4"
+  }
+}
