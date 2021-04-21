@@ -1,5 +1,5 @@
 # READ-about-ME.md
-A simple service for creating badges on your GitHub profile README.
+A simple service for creating badges on your GitHub profile README or anywhere else that supports image URLs!
 
 ## Current features
 - Generate animated cards with a header, short bio, pronouns and location
