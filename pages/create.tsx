@@ -23,7 +23,7 @@ import { useMemo, useState } from 'react';
 import Footer from '../components/Footer';
 import styles from '../styles/Home.module.css';
 import generate_card, { CardProperties } from '../src/card/index';
-import getAbsoluteUrl from 'next-absolute-url';
+import _getAbsoluteUrl from 'next-absolute-url';
 import BackHome from '../components/BackHome';
 import CopyBox from '../components/CopyBox';
 
@@ -72,6 +72,14 @@ export default function Create() {
         }
     }, [card]);
 
+    function getAbsoluteUrl(): string {
+        if (typeof window !== 'undefined') {
+            return _getAbsoluteUrl().origin;
+        } else {
+            return "";
+        }
+    }
+
     return <div className={styles.container}>
         <h1><BackHome /> Card creator</h1>
         <main className={styles.main}>
@@ -105,9 +113,9 @@ export default function Create() {
                 </div>
             </div>
 
-            <CopyBox title="Image" data={`${getAbsoluteUrl().origin}/api/card/${generated_data}`} />
-            <CopyBox title="Webpage" data={`${getAbsoluteUrl().origin}/card/${generated_data}`} />
-            <CopyBox title="Markdown" data={`![${name}](${getAbsoluteUrl().origin}/api/card/${generated_data})`} />
+            <CopyBox title="Image" data={`${getAbsoluteUrl()}/api/card/${generated_data}`} />
+            <CopyBox title="Webpage" data={`${getAbsoluteUrl()}/card/${generated_data}`} />
+            <CopyBox title="Markdown" data={`![${name}](${getAbsoluteUrl()}/api/card/${generated_data})`} />
         </main>
         <Footer />
     </div>
