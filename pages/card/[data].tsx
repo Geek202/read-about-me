@@ -22,12 +22,17 @@
 import Footer from '../../components/Footer';
 import styles from '../../styles/Home.module.css';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 export default function TestCard() {
     const router = useRouter();
     const { data } = router.query;
 
     return <div className={styles.container}>
+        <Head>
+            <title>Card</title>
+        </Head>
+
         <main className={styles.main}>
             <object className={styles['user-card']} data={"/api/card/" + data} />
         </main>

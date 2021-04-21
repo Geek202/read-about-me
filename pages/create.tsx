@@ -26,6 +26,7 @@ import generate_card, { CardProperties } from '../src/card/index';
 import _getAbsoluteUrl from 'next-absolute-url';
 import BackHome from '../components/BackHome';
 import CopyBox from '../components/CopyBox';
+import Head from 'next/head';
 
 export default function Create() {
     const [name, setName] = useState("");
@@ -81,6 +82,9 @@ export default function Create() {
     }
 
     return <div className={styles.container}>
+        <Head>
+            <title>Card Creator</title>
+        </Head>
         <h1><BackHome /> Card creator</h1>
         <main className={styles.main}>
 
