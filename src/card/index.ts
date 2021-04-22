@@ -23,9 +23,9 @@ import { ACCENT, BACKGROUND } from "./constants";
 import icons from "./icons";
 import { create_styles } from "./style";
 
-type Icon = 'pronouns' | 'location' | 'star' | 'sadface';
+export type Icon = 'pronouns' | 'location' | 'star' | 'sadface';
 
-interface Line {
+export interface Line {
     icon?: Icon,
     text: string,
 }

@@ -23,6 +23,7 @@ import styles from '../styles/Home.module.css';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import React from 'react';
 import { useSnackbar } from 'notistack';
+import Button from './Button';
 
 interface Props {
     data: string
@@ -32,13 +33,14 @@ interface Props {
 const CopyBox: React.FC<Props> = (props) => {
     const {enqueueSnackbar} = useSnackbar();
 
-    return <div className={styles.card} style={{ maxWidth: '50vw' }}>
+    return <>
         <h3 className={styles['center-text']}>{props.title}</h3>
-        <code className={styles.code}>{props.data}</code>
+        <span style={{display: 'block'}} className={styles.code}>{props.data}</span>
+        <br />
         <CopyToClipboard text={props.data} onCopy={() => enqueueSnackbar('Copied to clipboard!')}>
-            <button className={styles.button}>Copy</button>
+            <Button>Copy</Button>
         </CopyToClipboard>
-    </div>
+    </>
 }
 
 export default CopyBox;

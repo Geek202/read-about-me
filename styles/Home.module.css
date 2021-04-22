@@ -67,11 +67,12 @@
 .code {
     /* background: #fafafa; */
     border-radius: 5px;
-    padding: 0.75rem;
-    font-size: 1.1rem;
+    padding: 1.1rem;
+    font-size: 1rem;
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-    max-width: 75vw;
-    overflow-wrap: break-word;
+    max-width: 450px;
+    /* overflow-wrap: break-word; */
+    overflow-x: scroll;
 }
 
 .grid {
@@ -97,7 +98,7 @@
 
 .input-card {
     margin: 1rem;
-    flex-basis: 45%;
+    flex-basis: 90%;
     padding: 1.5rem;
     text-align: left;
     color: inherit;
@@ -173,19 +174,4 @@ button.card {
 }
 .creator-grid-column {
     flex: 50%;
-}
-
-.button {
-    padding: 8px;
-    border: #efefef 1px solid;
-    border-radius: 8px;
-}
-
-.button:hover {
-    border-color: #087bff;
-}
-
-.button:focus,
-.button:active {
-    border-color: #0070f3;
 }

@@ -21,16 +21,51 @@
 
 import Footer from '../../components/Footer';
 import styles from '../../styles/Home.module.css';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { b64url_decode } from '../../src/b64';
+import { CardProperties } from '../../src/card';
+import { useMemo } from 'react';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-export default function TestCard() {
-    const router = useRouter();
-    const { data } = router.query;
+export default function TestCard({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    function decode(): CardProperties {
+        if (typeof window !== 'undefined') {
+            return JSON.parse(atob(data)) as CardProperties;
+        } else {
+            return b64url_decode(data) as CardProperties;
+        }
+    }
+
+    const card = useMemo(() => {
+        let card: CardProperties = {
+            name: 'Failed to load',
+            lines: [
+                {
+                    text: 'The card failed to load',
+                    icon: 'sadface',
+                }
+            ]
+        }
+        try {
+            card = decode();
+        } catch (e) { console.log(e) }
+        return card;
+    }, []);
+
+    const desc = useMemo(() => {
+        return `See ${card.name}'s card!`
+    }, [card]);
 
     return <div className={styles.container}>
         <Head>
             <title>Card</title>
+            
+            <meta property="og:title" content={card.name} />
+            <meta name="twitter:title" content={card.name} />
+
+            <meta property="og:description" content={desc} />
+            <meta name="description" content={desc} />
+            <meta property="twitter:description" content={desc} />
         </Head>
 
         <main className={styles.main}>
@@ -39,4 +74,12 @@ export default function TestCard() {
 
         <Footer />
     </div>
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {
+            data: context.query.data as string
+        }
+    }
 }

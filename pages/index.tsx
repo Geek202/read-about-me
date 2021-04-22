@@ -43,7 +43,7 @@ export default function Home() {
                 </p>
 
                 <div className={styles.grid}>
-                    <NextLink href="/create">
+                    <NextLink href="/new-creator">
                         <a className={styles.card}>
                             <h3>Create a card &rarr;</h3>
                             <p>Make and personalize a card to share</p>

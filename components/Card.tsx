@@ -19,30 +19,17 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { NextApiRequest, NextApiResponse } from "next"
-import { b64url_decode } from "../../../src/b64";
-import generate_card, { CardProperties } from "../../../src/card/index";
-import { cors } from "../../../src/cors"
+import React, { HTMLAttributes } from 'react';
+import styles from './Card.module.css';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-    await cors(req, res);
-
-    const { data } = req.query;
-    let card: CardProperties = {
-        name: 'Failed to load',
-        lines: [
-            {
-                text: 'The card failed to load',
-                icon: 'sadface',
-            }
-        ]
-    }
-    try {
-        card = b64url_decode(data as string);
-    } catch (e) { }
-
-    res.status(200);
-    res.setHeader("Content-Type", "image/svg+xml");
-    res.setHeader("Cache-Control", "public, max-age=7200"); // Two hours
-    res.send(generate_card(card));
+interface Props {
+    hoverEffect?: boolean
 }
+
+const Card: React.FC<HTMLAttributes<HTMLDivElement> & Props> = (props) => {
+    return <div {...props} className={styles.card + (props.hoverEffect ? ` ${styles.hoverable}` : '')}>
+        {props.children}
+    </div>
+}
+
+export default Card;
