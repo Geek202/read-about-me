@@ -40,25 +40,35 @@ export default function Credits() {
             </p>
 
             <div className={styles.grid}>
-                <a href="https://nextjs.org" className={styles.card}>
+                <a href="https://nextjs.org" target="_blank" className={styles.card}>
                     <h3>next.js &rarr;</h3>
                     <p>Server-Side rendering for reactjs</p>
                 </a>
 
-                <a href="https://www.typescriptlang.org" className={styles.card}>
+                <a href="https://www.typescriptlang.org" target="_blank" className={styles.card}>
                     <h3>TypeScript &rarr;</h3>
                     <p>Statically typed JavaScript</p>
                 </a>
 
-                <a href="https://github.com/iamhosseindhv/notistack" className={styles.card}>
+                <a href="https://vercel.com/" target="_blank" className={styles.card}>
+                    <h3>Vercel &rarr;</h3>
+                    <p>Serverless hosting for next.js</p>
+                </a>
+
+                <a href="https://github.com/iamhosseindhv/notistack" target="_blank" className={styles.card}>
                     <h3>notistack &rarr;</h3>
                     <p>Nice little toasts</p>
                 </a>
 
+                <a href="https://material.io/icons" target="_blank" className={styles.card}>
+                    <h3>Material Design Icons &rarr;</h3>
+                    <p>Premade icons used for the cards</p>
+                </a>
+
                 <div className={styles.card}>
                     <h3>Others</h3>
-                    <p><a href="https://npmjs.org/next-absolute-url">next-absolute-url &rarr;</a></p>
-                    <p><a href="https://npmjs.org/react-copy-to-clipboard">react-copy-to-clipboard &rarr;</a></p>
+                    <p><a href="https://npmjs.org/next-absolute-url" target="_blank">next-absolute-url &rarr;</a></p>
+                    <p><a href="https://npmjs.org/react-copy-to-clipboard" target="_blank">react-copy-to-clipboard &rarr;</a></p>
                 </div>
             </div>
         </main>
