@@ -1,16 +1,10 @@
-import Canvg, { presets } from "canvg";
 import { NextApiRequest, NextApiResponse } from "next"
 import { b64url_decode } from "../../../../src/b64";
 import generate_card, { CardProperties } from "../../../../src/card/index";
 import { cors } from "../../../../src/cors";
-import { DOMParser } from 'xmldom';
-import * as canvas from 'canvas';
+import { subClass } from 'gm'
 
-const preset = presets.node({
-    DOMParser,
-    canvas,
-    fetch,
-});
+const gm = subClass({ imageMagick: true });
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     await cors(req, res);
@@ -34,9 +28,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader("Cache-Control", "public, max-age=7200"); // Two hours
     let height: number;
     const card_svg = generate_card(card, false, '', (h) => height = h);
-    const canvas = preset.createCanvas(495, height);
-    const ctx = canvas.getContext('2d');
-    const v = Canvg.fromString(ctx, card_svg, preset);
-    await v.render();
-    res.send(canvas.toBuffer());
+    const svg_buf = Buffer.from(card_svg);
+    const starttime = Date.now();
+    const buf = await new Promise((resolve, reject) => {
+        gm(svg_buf, 'card.svg')
+            .toBuffer((err, buf) => {
+                console.log(err, buf);
+                if (!err) {
+                    resolve(buf);
+                } else {
+                    reject(err);
+                }
+        })
+    });
+    res.setHeader('X-Compute-Time', Date.now() - starttime);
+    
+    res.send(buf);
 }
