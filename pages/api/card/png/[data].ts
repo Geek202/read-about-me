@@ -32,7 +32,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const starttime = Date.now();
     const buf = await new Promise((resolve, reject) => {
         gm(svg_buf, 'card.svg')
-            .toBuffer((err, buf) => {
+            .toBuffer('PNG', (err, buf) => {
                 console.log(err, buf);
                 if (!err) {
                     resolve(buf);
