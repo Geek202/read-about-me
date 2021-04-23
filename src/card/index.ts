@@ -37,9 +37,10 @@ export interface CardProperties {
     height?: number,
 }
 
-export default function generate_card(props: CardProperties, animated: boolean = true, add_class: string = ""): string {
+export default function generate_card(props: CardProperties, animated: boolean = true, add_class: string = "", get_height: ((height: number) => void) = () => { }): string {
     // const height = props.height || 215;
     const height = 64 + (props.lines.length * 32);
+    get_height(height);
 
     return `<svg class="${add_class}" width="495" height="${height}" viewBox="0 0 495 ${height}" fill="none" 
     xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +48,7 @@ export default function generate_card(props: CardProperties, animated: boolean =
 ${create_styles(props.lines.length, animated)}
     </style>
     <rect width="495" height="${height}" rx="8" ry="8" style="fill:${BACKGROUND};" />
-    <text x="24" y="36" fill="white" class="card-title">${props.name}</text>
+    <text x="24" y="36" fill="white" class="card-title" font-family="'Segoe UI', Ubuntu, 'Helvetica Neue', Sans-Serif" font-size="24">${props.name}</text>
     
     ${generate_lines(props.lines)}
 </svg>`
@@ -69,7 +70,7 @@ function generate_line(i: number, line: Line): string {
     if (line.icon === undefined) {
         x = 24;
     }
-    return `${icon}<text x="${x}" y="${y}" fill="#eee" class="line-${i}">${line.text}</text>`
+    return `${icon}<text x="${x}" y="${y}" fill="#eee" class="line-${i}" font-family="'Segoe UI', Ubuntu, 'Helvetica Neue', Sans-Serif" font-size="18">${line.text}</text>`
 }
 
 function create_icon_group(icon: Icon, y: number, i: number): string {

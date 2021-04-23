@@ -34,7 +34,6 @@ ${(fade && generate_fades(lines)) || ''}
 
 .card-title {
     font: 600 24px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
-    text-transform: bold;
 }
 
 @keyframes fade-in {

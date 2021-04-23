@@ -26,8 +26,9 @@ import { b64url_decode } from '../../src/b64';
 import { CardProperties } from '../../src/card';
 import { useMemo } from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import absoluteUrl from 'next-absolute-url';
 
-export default function TestCard({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Card({ data, img_url }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     function decode(): CardProperties {
         if (typeof window !== 'undefined') {
             return JSON.parse(atob(data)) as CardProperties;
@@ -66,6 +67,10 @@ export default function TestCard({ data }: InferGetServerSidePropsType<typeof ge
             <meta property="og:description" content={desc} />
             <meta name="description" content={desc} />
             <meta property="twitter:description" content={desc} />
+
+            <meta name="og:image" content={img_url} />
+            <meta name="twitter:image" content={img_url} />
+            <meta name="twitter:card" content="summary_large_image" />
         </Head>
 
         <main className={styles.main}>
@@ -79,7 +84,8 @@ export default function TestCard({ data }: InferGetServerSidePropsType<typeof ge
 export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
-            data: context.query.data as string
+            data: context.query.data as string,
+            img_url: `${absoluteUrl(context.req).origin}/api/card/png/${context.query.data}`
         }
     }
 }

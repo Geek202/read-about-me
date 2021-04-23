@@ -22,7 +22,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { b64url_decode } from "../../../src/b64";
 import generate_card, { CardProperties } from "../../../src/card/index";
-import { cors } from "../../../src/cors"
+import { cors } from "../../../src/cors";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     await cors(req, res);
