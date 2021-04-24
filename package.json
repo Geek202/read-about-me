@@ -11,7 +11,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "cors": "^2.8.5",
-    "gm": "^1.23.1",
+    "imagemagick": "^0.1.3",
     "next": "10.1.3",
     "next-absolute-url": "^1.2.2",
     "notistack": "^1.0.6",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
-    "@types/gm": "^1.18.9",
+    "@types/imagemagick": "^0.0.30",
     "@types/react": "^17.0.3",
     "@types/react-copy-to-clipboard": "^5.0.0",
     "typescript": "^4.2.4"

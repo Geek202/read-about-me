@@ -2,9 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { b64url_decode } from "../../../../src/b64";
 import generate_card, { CardProperties } from "../../../../src/card/index";
 import { cors } from "../../../../src/cors";
-import { subClass } from 'gm'
-
-const gm = subClass({ imageMagick: true });
+import { convert } from 'imagemagick';
+import { writeFileSync, readFileSync, rmSync } from 'fs';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     await cors(req, res);
@@ -30,16 +29,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const card_svg = generate_card(card, false, '', (h) => height = h);
     const svg_buf = Buffer.from(card_svg);
     const starttime = Date.now();
-    const buf = await new Promise((resolve, reject) => {
-        gm(svg_buf, 'card.svg')
-            .toBuffer('PNG', (err, buf) => {
-                console.log(err, buf);
-                if (!err) {
-                    resolve(buf);
-                } else {
-                    reject(err);
-                }
-        })
+    const buf: Buffer = await new Promise((resolve, reject) => {
+        const time = new Date().getTime();
+        const input = `tmp-${time}.svg`;
+        const output = `tmp-${time}.png`;
+        writeFileSync(input, svg_buf);
+        convert([input, output], (err, out) => {
+            rmSync(input);
+            if (err) {
+                reject(err);
+            } else {
+                const result = readFileSync(output);
+                rmSync(output);
+                resolve(result);
+            }
+        });
     });
     res.setHeader('X-Compute-Time', Date.now() - starttime);
     
