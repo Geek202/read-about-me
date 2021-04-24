@@ -4,6 +4,8 @@ import generate_card, { CardProperties } from "../../../../src/card/index";
 import { cors } from "../../../../src/cors";
 import { convert } from 'imagemagick';
 import { writeFileSync, readFileSync, rmSync } from 'fs';
+import { tmpdir } from 'os';
+import path from 'path';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     await cors(req, res);
@@ -31,8 +33,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const starttime = Date.now();
     const buf: Buffer = await new Promise((resolve, reject) => {
         const time = new Date().getTime();
-        const input = `tmp-${time}.svg`;
-        const output = `tmp-${time}.png`;
+        const tmp = tmpdir();
+        const input = path.join(tmp, `tmp-${time}.svg`);
+        const output = path.join(tmp, `tmp-${time}.png`);
         writeFileSync(input, svg_buf);
         convert([input, output], (err, out) => {
             rmSync(input);
