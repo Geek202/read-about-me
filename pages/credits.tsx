@@ -65,9 +65,9 @@ export default function Credits() {
                     <p>Premade icons used for the cards</p>
                 </a>
 
-                <a href="https://github.com/canvg/canvg" target="_blank" className={styles.card}>
-                    <h3>canvg &rarr;</h3>
-                    <p>SVG to PNG conversion</p>
+                <a href="https://github.com/vercel/og-image" target="_blank" className={styles.card}>
+                    <h3>og-image &rarr;</h3>
+                    <p>Self-hosted version used to render PNGs of cards</p>
                 </a>
 
                 <div className={styles.card}>

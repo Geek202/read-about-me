@@ -85,7 +85,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             data: context.query.data as string,
-            img_url: `${absoluteUrl(context.req).origin}/api/card/png/${context.query.data}`
+            img_url: "https://read-about-me-og-image.vercel.app/.png?theme=dark&md=1&fontSize=100px&images=" + encodeURIComponent(`${absoluteUrl(context.req).origin}/api/card/static/${context.query.data}`)
         }
     }
 }
