@@ -82,10 +82,27 @@ export default function Card({ data, img_url }: InferGetServerSidePropsType<type
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+    let card: CardProperties;
+    try {
+        card = b64url_decode(context.query.data as string);
+    } catch(e) {
+        card = {
+            name: 'Failed to load',
+            lines: [
+                {
+                    text: 'The card failed to load',
+                    icon: 'sadface',
+                }
+            ]
+        };
+    }
+
+    const height = 64 + (card.lines.length * 32);
+    
     return {
         props: {
             data: context.query.data as string,
-            img_url: "https://read-about-me-og-image.vercel.app/.png?theme=dark&md=1&fontSize=100px&images=" + encodeURIComponent(`${absoluteUrl(context.req).origin}/api/card/static/${context.query.data}`)
+            img_url: `https://read-about-me-og-image.vercel.app/.png?theme=dark&md=1&fontSize=100px&heights=${height * 2.5}&images=` + encodeURIComponent(`${absoluteUrl(context.req).origin}/api/card/static/${context.query.data}`)
         }
     }
 }
